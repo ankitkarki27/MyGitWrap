@@ -1,34 +1,50 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Search } from 'lucide-react';
 
 export default function HeroSection() {
+  const router = useRouter();
   const [username, setUsername] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
 
-  const handleSearch = (e: React.FormEvent) => {
+  const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!username.trim()) return;
+    if (!username.trim()) {
+      setError('Please enter a GitHub username');
+      return;
+    }
     
     setIsLoading(true);
-    // Here you'll fetch GitHub data
-    console.log('Searching for:', username);
-    
-    // Simulate API call
-    setTimeout(() => {
+    setError('');
+
+    try {
+      // First verify the user exists
+      const userResponse = await fetch(`/api/github/user?username=${username}`);
+      
+      if (!userResponse.ok) {
+        throw new Error('User not found');
+      }
+
+      // Navigate to the results page
+      router.push(`/results/${username}`);
+      
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Something went wrong');
+    } finally {
       setIsLoading(false);
-      // Navigate to results page or show results
-      // router.push(`/wrap/${username}`);
-    }, 1000);
+    }
+  };
+
+  const handleExampleClick = (exampleUser: string) => {
+    setUsername(exampleUser);
   };
 
   return (
     <section className="relative overflow-hidden pt-16 pb-24 font-two">
-      {/* Background linear */}
-      {/* <div className="absolute inset-0 bg-linear-to-br from-blue-500/5 via-transparent to-green-500/5" /> */}
-      
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
         <div className="text-center">
           {/* Heading */}
@@ -47,17 +63,17 @@ export default function HeroSection() {
             </p>
 
             {/* Search Form */}
-            <form onSubmit={handleSearch} className="max-w-md mx-auto mb-10">
+            <form onSubmit={handleSearch} className="max-w-md mx-auto mb-8">
               <div className="relative">
-                {/* <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <Search className="h-5 w-5 text-gray-400" />
-                </div> */}
+                </div>
                 <input
                   type="text"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  placeholder="Enter username"
-                  className="block w-full pl-2 pr-32 py-3 text-base border border-gray-600 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="Enter GitHub username"
+                  className="block w-full pl-10 pr-32 py-3 text-base border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   disabled={isLoading}
                 />
                 <div className="absolute inset-y-0 right-0 flex items-center pr-1">
@@ -73,12 +89,46 @@ export default function HeroSection() {
                       </div>
                     ) : (
                       <div className="flex items-center gap-2">
-                       
                         <span>Generate</span>
                       </div>
                     )}
                   </Button>
                 </div>
+              </div>
+              
+              {/* Error message */}
+              {error && (
+                <p className="mt-2 text-sm text-red-600 dark:text-red-400">
+                  {error}
+                </p>
+              )}
+              
+              {/* Example usernames */}
+              <div className="mt-4 text-sm text-gray-500 dark:text-gray-400">
+                Try: 
+                <button 
+                  type="button"
+                  onClick={() => handleExampleClick('ankitkarki27')}
+                  className="ml-1 text-blue-600 dark:text-blue-400 hover:underline"
+                >
+                  ankitkarki27
+                </button>
+                {' • '}
+                <button 
+                  type="button"
+                  onClick={() => handleExampleClick('facebook')}
+                  className="text-blue-600 dark:text-blue-400 hover:underline"
+                >
+                  facebook
+                </button>
+                {' • '}
+                <button 
+                  type="button"
+                  onClick={() => handleExampleClick('torvalds')}
+                  className="text-blue-600 dark:text-blue-400 hover:underline"
+                >
+                  torvalds
+                </button>
               </div>
             </form>
 
@@ -98,8 +148,6 @@ export default function HeroSection() {
               </div>
             </div>
           </div>
-
-
         </div>
       </div>
     </section>
