@@ -79,7 +79,7 @@ export default function WrapPage() {
     if (count < 500) return { name: 'Pro', color: 'bg-purple-100 text-purple-800' };
     if (count < 1000) return { name: 'Expert', color: 'bg-pink-100 text-pink-800' };
     if (count < 1500) return { name: 'Master', color: 'bg-red-100 text-red-800' };
-    return { name: 'Legend', color: 'bg-gradient-to-r from-yellow-100 to-red-100 text-gray-900' };
+    return { name: 'Legend', color: 'bg-linear-to-r from-yellow-100 to-red-100 text-gray-900' };
   };
 
   // Helper function to determine PR tier
@@ -89,7 +89,7 @@ export default function WrapPage() {
     if (count < 50) return { name: 'Reviewer', color: 'bg-yellow-100 text-yellow-800' };
     if (count < 100) return { name: 'Collaborator', color: 'bg-purple-100 text-purple-800' };
     if (count < 200) return { name: 'Maintainer', color: 'bg-pink-100 text-pink-800' };
-    return { name: 'Architect', color: 'bg-gradient-to-r from-purple-100 to-pink-100 text-gray-900' };
+    return { name: 'Architect', color: 'bg-linear-to-r from-purple-100 to-pink-100 text-gray-900' };
   };
 
   // Helper function to determine commit tier
@@ -99,12 +99,12 @@ export default function WrapPage() {
     if (count < 1000) return { name: 'Engineer', color: 'bg-yellow-100 text-yellow-800' };
     if (count < 2000) return { name: 'Senior', color: 'bg-purple-100 text-purple-800' };
     if (count < 5000) return { name: 'Lead', color: 'bg-pink-100 text-pink-800' };
-    return { name: 'Principal', color: 'bg-gradient-to-r from-yellow-100 to-orange-100 text-gray-900' };
+    return { name: 'Principal', color: 'bg-linear-to-r from-yellow-100 to-orange-100 text-gray-900' };
   };
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100">
+      <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-gray-50 to-gray-100">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-gray-200 border-t-blue-600 rounded-full animate-spin mx-auto mb-4" />
           <p className="text-gray-600">Creating your GitHub Wrap...</p>
@@ -133,21 +133,21 @@ export default function WrapPage() {
   const starTier = getTier(stats.totalStars);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 p-4">
+    <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-gray-50 to-gray-100 p-4 font-two">
       {/* GitHub Wrap Card */}
       <div className="max-w-md w-full">
         {/* Card Container */}
         <div className="bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-200">
           
-          {/* Header - Gradient */}
-          <div className="h-4 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600" />
+          {/* Header - linear */}
+          <div className="h-4 bg-linear-to-r from-blue-600 via-purple-600 to-pink-600" />
           
           {/* Card Content */}
           <div className="p-6">
             {/* Year Badge */}
             <div className="flex justify-between items-start mb-6">
               <div className="flex items-center gap-2">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-r from-blue-100 to-purple-100 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-full bg-linear-to-r from-blue-100 to-purple-100 flex items-center justify-center">
                   <Calendar className="w-5 h-5 text-blue-600" />
                 </div>
                 <div>
@@ -173,7 +173,7 @@ export default function WrapPage() {
               <img
                 src={user.avatar_url}
                 alt={user.login}
-                className="w-16 h-16 rounded-full border-4 border-white shadow-lg"
+                className="w-12 h-12 rounded-full border-4 border-white shadow-lg"
               />
               <div>
                 <h1 className="text-xl font-bold text-gray-900">
@@ -185,16 +185,15 @@ export default function WrapPage() {
                   rel="noopener noreferrer"
                   className="flex items-center gap-1 text-gray-600 hover:text-blue-600"
                 >
-                  <Github className="w-4 h-4" />
-                  <span>@{user.login}</span>
+                  <span className='text-xs'>@{user.login}</span>
                 </a>
               </div>
             </div>
 
             {/* Stats Grid */}
-            <div className="space-y-4 mb-8">
+            <div className="space-y-2 mb-8">
               {/* Commits */}
-              <div className="flex items-center justify-between p-4 border border-gray-200 rounded-xl">
+              <div className="flex flex-col-2 items-center justify-between p-4 border border-gray-200 rounded-xl">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center">
                     <GitCommit className="w-5 h-5 text-blue-600" />
@@ -225,22 +224,6 @@ export default function WrapPage() {
                 </span>
               </div>
 
-              {/* Repositories */}
-              <div className="flex items-center justify-between p-4 border border-gray-200 rounded-xl">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-purple-50 flex items-center justify-center">
-                    <GitBranch className="w-5 h-5 text-purple-600" />
-                  </div>
-                  <div>
-                    <div className="font-semibold text-gray-900">{stats.totalRepos}</div>
-                    <div className="text-sm text-gray-500">Repositories</div>
-                  </div>
-                </div>
-                <span className={`px-3 py-1 rounded-full text-sm font-medium ${repoTier.color}`}>
-                  {repoTier.name}
-                </span>
-              </div>
-
               {/* Forks */}
               <div className="flex items-center justify-between p-4 border border-gray-200 rounded-xl">
                 <div className="flex items-center gap-3">
@@ -257,21 +240,6 @@ export default function WrapPage() {
                 </span>
               </div>
 
-              {/* Stars */}
-              <div className="flex items-center justify-between p-4 border border-gray-200 rounded-xl">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-yellow-50 flex items-center justify-center">
-                    <Star className="w-5 h-5 text-yellow-600" />
-                  </div>
-                  <div>
-                    <div className="font-semibold text-gray-900">{stats.totalStars}</div>
-                    <div className="text-sm text-gray-500">Stars Earned</div>
-                  </div>
-                </div>
-                <span className={`px-3 py-1 rounded-full text-sm font-medium ${starTier.color}`}>
-                  {starTier.name}
-                </span>
-              </div>
             </div>
 
             {/* Footer */}
@@ -293,7 +261,7 @@ export default function WrapPage() {
 
         {/* Action Buttons */}
         <div className="mt-6 flex gap-3">
-          <Button className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
+          <Button className="flex-1 bg-linear-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
             Download as Image
           </Button>
           <Button variant="outline" className="flex-1">

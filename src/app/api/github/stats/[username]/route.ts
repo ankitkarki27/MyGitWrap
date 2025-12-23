@@ -1,5 +1,6 @@
+// app/api/github/stats/[username]/route.ts
 import { NextRequest, NextResponse } from 'next/server';
-import { fetchYearlyStats } from '@/lib/github';
+import { generateWrap } from '@/lib/github'; // Changed from fetchYearlyStats
 
 export async function GET(
   request: NextRequest,
@@ -17,12 +18,24 @@ export async function GET(
   }
 
   try {
-    const stats = await fetchYearlyStats(username, parseInt(year));
-    return NextResponse.json(stats);
-  } catch (error) {
-    console.error('Error fetching yearly stats:', error);
+    const wrapData = await generateWrap(username, parseInt(year));
+    return NextResponse.json(wrapData, {
+      headers: {
+        'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600',
+      },
+    });
+  } catch (error: any) {
+    console.error('Error generating wrap:', error);
+    
+    if (error.message?.includes('not found')) {
+      return NextResponse.json(
+        { error: `User "${username}" not found` },
+        { status: 404 }
+      );
+    }
+    
     return NextResponse.json(
-      { error: 'Failed to fetch yearly statistics' },
+      { error: 'Failed to generate wrap. Please try again.' },
       { status: 500 }
     );
   }
