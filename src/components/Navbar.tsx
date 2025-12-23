@@ -13,7 +13,7 @@ export default function Navbar() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
             <Image
-              src="/logo2.png"
+              src="/logo-mygitwrap.png"
               alt="MyGitWrap logo"
               width={32}
               height={32}
