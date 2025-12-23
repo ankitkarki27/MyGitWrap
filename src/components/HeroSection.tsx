@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Sparkles, Search, TrendingUp } from 'lucide-react';
+import { Search } from 'lucide-react';
 
 export default function HeroSection() {
   const [username, setUsername] = useState('');
@@ -49,22 +49,22 @@ export default function HeroSection() {
             {/* Search Form */}
             <form onSubmit={handleSearch} className="max-w-md mx-auto mb-10">
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                {/* <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <Search className="h-5 w-5 text-gray-400" />
-                </div>
+                </div> */}
                 <input
                   type="text"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  placeholder="Enter GitHub username"
-                  className="block w-full pl-10 pr-32 py-3 text-base border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="Enter username"
+                  className="block w-full pl-2 pr-32 py-3 text-base border border-gray-600 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   disabled={isLoading}
                 />
                 <div className="absolute inset-y-0 right-0 flex items-center pr-1">
                   <Button
                     type="submit"
                     disabled={isLoading || !username.trim()}
-                    className="mr-1 bg-gray-900 hover:bg-gray-800 dark:bg-gray-800 dark:hover:bg-gray-700"
+                    className="mr-1 bg-gray-900 hover:bg-gray-800 dark:bg-gray-800 dark:hover:bg-gray-700 cursor-pointer"
                   >
                     {isLoading ? (
                       <div className="flex items-center gap-2">
@@ -73,8 +73,8 @@ export default function HeroSection() {
                       </div>
                     ) : (
                       <div className="flex items-center gap-2">
-                        <Sparkles className="w-4 h-4" />
-                        <span>Create Your GitWrap</span>
+                       
+                        <span>Generate</span>
                       </div>
                     )}
                   </Button>

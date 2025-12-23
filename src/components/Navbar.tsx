@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { ArrowArcLeftIcon, ArrowCircleUpRight, GithubLogoIcon } from '@phosphor-icons/react/dist/ssr';
+import { ArrowArcLeftIcon, GithubLogoIcon } from '@phosphor-icons/react/dist/ssr';
 import Image from 'next/image';
 
 export default function Navbar() {
@@ -30,13 +30,13 @@ export default function Navbar() {
             size="sm"
             className="
               flex items-center gap-2
-              bg-linear-to-b from-[#050112] to-[#03010d]
+             bg-linear-to-b from-[#050112] to-[#03010d]
               px-4 py-2 rounded-xl text-white
               font-medium font-two
               shadow-[0,4px,4px_rgba(0,10,31,0.25)]
               gradient-stroke cursor-pointer"
           >
-            <Link href="/search">
+            <Link href="https://github.com/ankitkarki27/MyGitWrap">
               <GithubLogoIcon size={32} />
               Github
             </Link>

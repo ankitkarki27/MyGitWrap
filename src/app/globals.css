@@ -127,8 +127,8 @@
 .gradient-stroke{
   border: 2px solid transparent;
   background: fixed
-  /* linear-gradient(#7f5Ef5, #997FFF) padding-box,
-  linear-gradient(#A089FF, #8C70FF) border-box, */
-  linear-gradient(#05040a, #090711) padding-box,
-  linear-gradient(#030108, #05030f) border-box,
+  linear-gradient(#7f5Ef5, #997FFF) padding-box,
+  linear-gradient(#A089FF, #8C70FF) border-box,
+  /* linear-gradient(#05040a, #090711) padding-box,
+  linear-gradient(#030108, #05030f) border-box, */
 }
