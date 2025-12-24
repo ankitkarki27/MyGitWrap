@@ -28,8 +28,6 @@ export default function HeroSection() {
       if (!userResponse.ok) {
         throw new Error('User not found');
       }
-
-      // Navigate to the results page
       router.push(`/results/${username}`);
       
     } catch (err) {
@@ -47,7 +45,6 @@ export default function HeroSection() {
     <section className="relative overflow-hidden pt-16 pb-24 font-two">
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
         <div className="text-center">
-          {/* Heading */}
           <div className="animate-fade-in">
             <h1 className="text-4xl sm:text-5xl font-bold mb-6">
               <span className="block text-gray-900 dark:text-white">Your GitHub Year</span>
@@ -62,7 +59,7 @@ export default function HeroSection() {
               Simply enter a username to generate a personalized wrap.
             </p>
 
-            {/* Search Form */}
+            {/* search form */}
             <form onSubmit={handleSearch} className="max-w-md mx-auto mb-8">
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -96,7 +93,7 @@ export default function HeroSection() {
                 </div>
               </div>
               
-              {/* Error message */}
+
               {error && (
                 <p className="mt-2 text-sm text-red-600 dark:text-red-400">
                   {error}
@@ -113,26 +110,11 @@ export default function HeroSection() {
                 >
                   ankitkarki27
                 </button>
-                {' • '}
-                <button 
-                  type="button"
-                  onClick={() => handleExampleClick('facebook')}
-                  className="text-blue-600 dark:text-blue-400 hover:underline"
-                >
-                  facebook
-                </button>
-                {' • '}
-                <button 
-                  type="button"
-                  onClick={() => handleExampleClick('torvalds')}
-                  className="text-blue-600 dark:text-blue-400 hover:underline"
-                >
-                  torvalds
-                </button>
+                {/* {' • '} */}
+              
               </div>
             </form>
 
-            {/* Stats */}
             <div className="grid grid-cols-3 gap-4 max-w-md mx-auto">
               <div className="text-center">
                 <div className="text-xl font-bold text-gray-900 dark:text-white">100%</div>

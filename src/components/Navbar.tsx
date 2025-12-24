@@ -23,7 +23,6 @@ export default function Navbar() {
             </span>
           </Link>
 
-          {/* Create Button */}
           <Button
             asChild
             variant="default"
